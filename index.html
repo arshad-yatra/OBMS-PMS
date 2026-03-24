@@ -3060,7 +3060,7 @@ h2.l-cta-title em{font-style:italic;color:var(--gold)}
   function renderTabs(){
     const container = document.getElementById('obmsTabsContainer');
     if(!container) return;
-    const cats = [{id:'all',name:'All'},..._allCats.map(c=>({id:c.id,name:c.name}))];
+    const cats = [{id:'all',name:'All'},..._allCats.filter(c=>c.name!=='All').map(c=>({id:c.id,name:c.name}))];
     container.innerHTML = cats.map(c=>
       `<button class="obms-tab${c.id===_activeCat?' active':''}" data-cat="${c.id}">${c.name}</button>`
     ).join('');
