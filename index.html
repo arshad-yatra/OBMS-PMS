@@ -2949,14 +2949,20 @@ h2.l-cta-title em{font-style:italic;color:var(--gold)}
 .obms-tab:hover{border-color:var(--gold);color:var(--gold)}
 .obms-tab.active{background:var(--gold);color:#fff;border-color:var(--gold);box-shadow:0 3px 12px rgba(255,1,110,.25)}
 .obms-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.1rem}
-.obms-card{border-radius:14px;overflow:hidden;background:#fff;border:1px solid var(--brd);transition:.25s;cursor:pointer;position:relative;box-shadow:0 2px 10px rgba(0,0,0,.06)}
+.obms-card{border-radius:14px;overflow:hidden;background:#fff;border:1px solid var(--brd);transition:.25s;cursor:pointer;position:relative;box-shadow:0 2px 10px rgba(0,0,0,.06);display:flex;flex-direction:column}
 .obms-card:hover{transform:translateY(-5px);border-color:var(--gold);box-shadow:0 12px 36px rgba(255,1,110,.14)}
-.obms-card img{width:100%;height:190px;object-fit:cover;display:block}
-.obms-card-body{padding:.9rem}
+.obms-card .obms-card-img{overflow:hidden;position:relative}
+.obms-card img{width:100%;height:190px;object-fit:cover;display:block;transition:transform .4s ease}
+.obms-card:hover img{transform:scale(1.08)}
+.obms-card-body{padding:.9rem;flex:1;display:flex;flex-direction:column}
 .obms-card-name{font-size:.82rem;font-weight:800;color:var(--txt);margin-bottom:.25rem;text-transform:capitalize}
 .obms-card-city{font-size:.68rem;color:var(--mut);display:flex;align-items:center;gap:.3rem}
 .obms-card-city i{color:var(--gold);font-size:.58rem}
-.obms-card-pop{position:absolute;top:.65rem;right:.65rem;background:rgba(255,255,255,.92);backdrop-filter:blur(8px);border-radius:6px;padding:.2rem .55rem;font-size:.6rem;font-weight:700;color:var(--gold);display:flex;align-items:center;gap:.25rem;box-shadow:0 2px 8px rgba(0,0,0,.12)}
+.obms-card-pop{position:absolute;top:.65rem;right:.65rem;background:rgba(255,255,255,.92);backdrop-filter:blur(8px);border-radius:6px;padding:.2rem .55rem;font-size:.6rem;font-weight:700;color:var(--gold);display:flex;align-items:center;gap:.25rem;box-shadow:0 2px 8px rgba(0,0,0,.12);z-index:2}
+.obms-card-cat{position:absolute;top:.65rem;left:.65rem;background:var(--gold);color:#fff;border-radius:20px;padding:.18rem .6rem;font-size:.55rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;z-index:2;box-shadow:0 2px 8px rgba(255,1,110,.3)}
+.obms-card-book{display:inline-flex;align-items:center;justify-content:center;gap:.35rem;margin-top:auto;padding-top:.65rem}
+.obms-card-book a{display:inline-flex;align-items:center;gap:.3rem;background:var(--gold);color:#fff;border:none;border-radius:8px;padding:.4rem .85rem;font-size:.65rem;font-weight:700;cursor:pointer;transition:.2s;text-decoration:none;font-family:inherit}
+.obms-card-book a:hover{background:#e0005f;box-shadow:0 4px 14px rgba(255,1,110,.35)}
 .obms-discover{border-radius:16px;overflow:hidden;background:#fff;border:1px solid var(--brd);display:grid;grid-template-columns:1fr 1.2fr;gap:0;box-shadow:0 4px 24px rgba(0,0,0,.08)}
 .obms-discover img{width:100%;height:100%;min-height:320px;object-fit:cover}
 .obms-discover-body{padding:2.5rem;display:flex;flex-direction:column;justify-content:center}
@@ -3032,12 +3038,17 @@ h2.l-cta-title em{font-style:italic;color:var(--gold)}
     grid.innerHTML = places.slice(0,8).map(p=>{
       const img = p.images[0] ? IMG_BASE+p.images[0] : '';
       const stars = p.popularity ? '⭐ '+p.popularity : '';
-      return `<div class="obms-card" onclick="window.open('https://obms-tourist.rajasthan.gov.in/place-details/${p.slug}','_blank')">
-        ${img?`<img src="${img}" alt="${titleCase(p.name)}" loading="lazy">`:''}
-        ${stars?`<div class="obms-card-pop">${stars}</div>`:''}
+      const detailUrl = 'https://obms-tourist.rajasthan.gov.in/place-details/'+p.slug;
+      return `<div class="obms-card" onclick="window.open('${detailUrl}','_blank')">
+        <div class="obms-card-img">
+          ${img?`<img src="${img}" alt="${titleCase(p.name)}" loading="lazy">`:''}
+          ${p.category?`<div class="obms-card-cat">${p.category}</div>`:''}
+          ${stars?`<div class="obms-card-pop">${stars}</div>`:''}
+        </div>
         <div class="obms-card-body">
           <div class="obms-card-name">${titleCase(p.name)}</div>
           <div class="obms-card-city"><i class="fas fa-map-marker-alt"></i> ${p.city}</div>
+          <div class="obms-card-book"><a href="${detailUrl}" target="_blank" onclick="event.stopPropagation()"><i class="fas fa-ticket-alt"></i> Book Now</a></div>
         </div>
       </div>`;
     }).join('');
@@ -3090,7 +3101,8 @@ h2.l-cta-title em{font-style:italic;color:var(--gold)}
                 city:a.city?.data?.attributes?.name||'',
                 images:(a.images?.data||[]).map(i=>i.attributes.url),
                 slug:a.placeDetail?.data?.attributes?.slug||'',
-                popularity:a.popularity||0
+                popularity:a.popularity||0,
+                category:catName
               };
             });
             if(places.length) _allCats.push({id:cat.id,name:catName,places});
