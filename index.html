@@ -510,6 +510,7 @@ button{cursor:pointer;border:none;font-family:var(--body);}
   background:#0F1E35;
   font-size:.85rem;color:#E8BE45;letter-spacing:0;font-family:sans-serif;
 }
+.n-logo-mark-img{height:32px;width:auto;margin-right:8px;flex-shrink:0;object-fit:contain}
 .n-logo-aa{color:#FF016E;font-style:normal;}
 .n-logo-tithya{color:#0F1E35;font-style:normal;}
 .n-logo-dot{
@@ -2240,6 +2241,7 @@ function manTab(btn, panelId){
 .ln-lmark{display:inline-flex;align-items:center;justify-content:center;
   width:30px;height:30px;border-radius:8px;margin-right:7px;flex-shrink:0;
   background:#0F1E35;font-size:.85rem;color:#E8BE45;font-family:sans-serif}
+.ln-lmark-img{height:32px;width:auto;margin-right:8px;flex-shrink:0;object-fit:contain}
 .ln-logo-aa{color:#FF016E;font-style:normal}
 .ln-logo-tithya{color:#0F1E35;font-style:normal}
 .ln-logo-dot{display:inline-block;width:4px;height:4px;border-radius:50%;
@@ -2711,7 +2713,7 @@ h2.l-cta-title em{font-style:italic;color:var(--gold)}
 <nav id="l-nav">
   <!-- Logo -->
   <a class="ln-logo" onclick="window.scrollTo({top:0,behavior:'smooth'})">
-    <span class="ln-lmark">🏨</span><span class="ln-logo-aa">OB</span><span class="ln-logo-tithya">MS</span><span class="ln-logo-dot"></span>
+    <img class="ln-lmark-img" src="https://obms-tourist.rajasthan.gov.in/images/image.png" alt="OBMS Logo"><span class="ln-logo-aa">OB</span><span class="ln-logo-tithya">MS</span><span class="ln-logo-dot"></span>
   </a>
   <!-- Nav links as tabs — same pill style as module tabs -->
   <div class="ln-tabs">
@@ -4323,7 +4325,7 @@ animJStep(1);
   <div class="n-brand">
     <!-- Logo -->
     <div class="n-logo" onclick="go('dash',ge('ab-dash'))" style="cursor:pointer" title="Dashboard">
-      <span class="n-logo-mark">🏨</span><span class="n-logo-aa">OB</span><span class="n-logo-tithya">MS</span><span class="n-logo-dot"></span>
+      <img class="n-logo-mark-img" src="https://obms-tourist.rajasthan.gov.in/images/image.png" alt="OBMS Logo"><span class="n-logo-aa">OB</span><span class="n-logo-tithya">MS</span><span class="n-logo-dot"></span>
     </div>
     <!-- Property name chip (populated by JS) -->
     <div class="n-prop-chip" id="navPropChip" style="display:none">
